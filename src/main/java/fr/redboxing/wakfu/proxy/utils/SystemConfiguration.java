@@ -10,9 +10,9 @@ import java.util.*;
 import java.nio.*;
 
 public class SystemConfiguration {
-    public static final EnumSet<SystemConfigurationType> DISPATCH_SERIALIZATION;
-    public static final SystemConfiguration INSTANCE;
-    private static final Pattern SPLIT_PATTERN;
+    public static final EnumSet<SystemConfigurationType> DISPATCH_SERIALIZATION = EnumSet.of(SystemConfigurationType.SERVER_ID/*, SystemConfigurationType.SUBSCRIPTION_CHECK_GAME_ID, SystemConfigurationType.BETA_CHECK_ENABLED, SystemConfigurationType.COMMUNITY_CHECK_ENABLE, SystemConfigurationType.COMMUNITY_REQUIRED, SystemConfigurationType.COMMUNITY_FORBIDDEN, SystemConfigurationType.AUTHORIZED_PARTNERS*/);
+    public static final SystemConfiguration INSTANCE = new SystemConfiguration();
+    private static final Pattern SPLIT_PATTERN = Pattern.compile(";");;
     private final Map<SystemConfigurationType, String> m_properties;
     private byte[] m_clientData;
     private byte[] m_dispatchData;
@@ -66,36 +66,37 @@ public class SystemConfiguration {
     }
 
     private void buildClientSerialization() {
-        final ByteBuf bb = Unpooled.buffer();
-        bb.writeInt(SystemConfigurationType.NUM_SHARED_PROPERTIES);
+        ByteArray bb = new ByteArray();
+        bb.putInt(SystemConfigurationType.NUM_SHARED_PROPERTIES);
         for (final SystemConfigurationType type : SystemConfigurationType.values()) {
             if (type.isShareWithClient()) {
                 final String value = this.m_properties.get(type);
                 if (value != null) {
-                    bb.writeShort(type.getId());
+                    bb.putShort(type.getId());
                     final byte[] bytes = Utils.toUTF8(value);
-                    bb.writeInt(bytes.length);
-                    bb.writeBytes(bytes);
+                    bb.putInt(bytes.length);
+                    bb.put(bytes);
                 }
             }
         }
-        this.m_clientData = bb.array();
+        this.m_clientData = bb.toArray();
     }
 
     private void buildDispatchSerialization() {
-        final ByteBuf bb = Unpooled.buffer();
-        bb.writeInt(SystemConfiguration.DISPATCH_SERIALIZATION.size());
-        for (final SystemConfigurationType type : SystemConfiguration.DISPATCH_SERIALIZATION) {
-            final String value = this.m_properties.get(type);
-            if (value == null) {
+        ByteArray bb = new ByteArray();
+        bb.putInt(DISPATCH_SERIALIZATION.size());
+        for (SystemConfigurationType type : DISPATCH_SERIALIZATION) {
+            String value = this.m_properties.get(type);
+            if (value == null)
                 continue;
-            }
-            bb.writeShort(type.getId());
-            final byte[] bytes = Utils.toUTF8(value);
-            bb.writeInt(bytes.length);
-            bb.writeBytes(bytes);
+
+            bb.putShort(type.getId());
+            byte[] bytes = Utils.toUTF8(value);
+            bb.putInt(bytes.length);
+            bb.put(bytes);
         }
-        this.m_dispatchData = bb.array();
+
+        this.m_dispatchData = bb.toArray();
     }
 
     public byte[] serializeForClient() {
@@ -264,12 +265,6 @@ public class SystemConfiguration {
                 return "null";
             }
         }
-    }
-
-    static {
-        DISPATCH_SERIALIZATION = EnumSet.of(SystemConfigurationType.SERVER_ID, SystemConfigurationType.SUBSCRIPTION_CHECK_GAME_ID, SystemConfigurationType.BETA_CHECK_ENABLED, SystemConfigurationType.COMMUNITY_CHECK_ENABLE, SystemConfigurationType.COMMUNITY_REQUIRED, SystemConfigurationType.COMMUNITY_FORBIDDEN, SystemConfigurationType.AUTHORIZED_PARTNERS);
-        INSTANCE = new SystemConfiguration();
-        SPLIT_PATTERN = Pattern.compile(";");
     }
 
     public static enum SystemConfigurationType {

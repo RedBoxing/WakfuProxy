@@ -34,25 +34,18 @@ public class PacketProxiesResult extends Packet {
             final byte[] bytes = new byte[packet.readableBytes()];
             packet.getBytes(packet.readerIndex(), bytes);
             ByteBuffer bb = ByteBuffer.wrap(bytes);
-
-
+            
             int proxySize = bb.getInt();
             for (int i = 0; i < proxySize; ++i) {
                 final Proxy proxy = Proxy.fromBuild(bb);
                 this.proxies.put(proxy.getId(), proxy);
-
-             //   WakfuProxy.getInstance().getLogger().info(proxy.toString());
             }
 
             int infoSize = bb.getInt();
             for (int j = 0; j < infoSize; ++j) {
                 final WorldInfo info = WorldInfo.fromBuild(bb);
                 this.worldInfos.put(info.getServerId(), info);
-
-              //  WakfuProxy.getInstance().getLogger().info(info.toString());
             }
-
-            WakfuProxy.getInstance().getLogger().info(getClass().getSimpleName() + " : " + toString());
 
         }catch (Exception ex) {
             ex.printStackTrace();
@@ -61,8 +54,8 @@ public class PacketProxiesResult extends Packet {
         ArrayList<Proxy> proxies = new ArrayList<>();
         ArrayList<WorldInfo> worlds = new ArrayList<>();
 
-        proxies.add(new Proxy(6, "Dathura", Community.FR, new ProxyServers(new ProxyServer("127.0.0.1", 8081, 443)), (byte) 0));
-        worlds.add(new WorldInfo(6, new SystemConfiguration(6, false, false, 0, "", "", "default"), Utils.versionToBytes((byte)1, (short)74, (byte)3)));
+        proxies.add(new Proxy(6, "URSS", Community.RU, new ProxyServers(new ProxyServer("127.0.0.1", 8081)), (byte) 0));
+        worlds.add(new WorldInfo(6, new SystemConfiguration(6, false, false, 0, "", "", "default;steam"), Utils.versionToBytes((byte)1, (short)74, (byte)3)));
 
         OutPacket out = new OutPacket(opcode);
 
