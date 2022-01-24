@@ -14,7 +14,7 @@ public class Opcodes {
     public static int RSA_RESULT = 401;
     public static int SET_IP = 367;
     public static int PROXY_RELAY_ERROR = 0;
-    public static int DISPATCH_AUTHENTICATION_RESPONSE = 0;
+    public static int DISPATCH_AUTHENTICATION_RESPONSE = 508;
     public static int AUTHENTICATION_RESPONSE = 417;
     public static int PROXIES_RESPONSE = 425;
     public static int AUTHENTICATION_TOKEN_RESPONSE = 445;

@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0673dcf0-94f1-466e-ad70-d35130d5f4bf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/WakfuSniffer.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/WakfuSniffer.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WakfuSniffer.iws" beforeDir="false" afterPath="$PROJECT_DIR$/WakfuSniffer.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/Opcodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/Opcodes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketProxiesResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketProxiesResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/utils/SystemConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/utils/SystemConfiguration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +164,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="discord-project" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">

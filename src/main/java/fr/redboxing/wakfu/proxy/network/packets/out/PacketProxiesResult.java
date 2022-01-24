@@ -34,7 +34,7 @@ public class PacketProxiesResult extends Packet {
             final byte[] bytes = new byte[packet.readableBytes()];
             packet.getBytes(packet.readerIndex(), bytes);
             ByteBuffer bb = ByteBuffer.wrap(bytes);
-            
+
             int proxySize = bb.getInt();
             for (int i = 0; i < proxySize; ++i) {
                 final Proxy proxy = Proxy.fromBuild(bb);
@@ -54,7 +54,7 @@ public class PacketProxiesResult extends Packet {
         ArrayList<Proxy> proxies = new ArrayList<>();
         ArrayList<WorldInfo> worlds = new ArrayList<>();
 
-        proxies.add(new Proxy(6, "URSS", Community.RU, new ProxyServers(new ProxyServer("127.0.0.1", 8081)), (byte) 0));
+        proxies.add(new Proxy(6, "Dathura", Community.FR, new ProxyServers(new ProxyServer("127.0.0.1", 8081)), (byte) 0));
         worlds.add(new WorldInfo(6, new SystemConfiguration(6, false, false, 0, "", "", "default;steam"), Utils.versionToBytes((byte)1, (short)74, (byte)3)));
 
         OutPacket out = new OutPacket(opcode);
