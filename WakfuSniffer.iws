@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0673dcf0-94f1-466e-ad70-d35130d5f4bf" name="Default Changelist" comment="" />
+    <list default="true" id="0673dcf0-94f1-466e-ad70-d35130d5f4bf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/ProxyServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/models/ProxyServers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WakfuSniffer.iws" beforeDir="false" afterPath="$PROJECT_DIR$/WakfuSniffer.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/models/Proxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/models/Proxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketProxiesResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketProxiesResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/utils/Utils.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -337,6 +344,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />

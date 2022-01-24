@@ -1,6 +1,7 @@
 package fr.redboxing.wakfu.proxy.models;
 
 import com.google.gson.annotations.SerializedName;
+import fr.redboxing.wakfu.proxy.ProxyServer;
 import fr.redboxing.wakfu.proxy.models.account.Community;
 import fr.redboxing.wakfu.proxy.utils.ByteArray;
 import fr.redboxing.wakfu.proxy.utils.Utils;
@@ -15,23 +16,20 @@ public class Proxy {
     private String m_name;
     @SerializedName("community")
     private Community m_community;
-    @SerializedName("address")
-    private String m_address;
-    @SerializedName("ports")
-    private int[] m_ports;
+    @SerializedName("servers")
+    private ProxyServers servers;
     private byte m_order;
 
-    public Proxy(int m_id, String m_name, Community m_community, String m_address, int[] m_ports, byte m_order) {
+    public Proxy(int m_id, String m_name, Community m_community, ProxyServers servers, byte m_order) {
         this.m_id = m_id;
         this.m_name = m_name;
         this.m_community = m_community;
-        this.m_address = m_address;
-        this.m_ports = m_ports;
+        this.servers = servers;
         this.m_order = m_order;
     }
 
     public Proxy() {
-        this(0, "Default", Community.DEFAULT_COMMUNITY, "127.0.0.1", new int[] { 5556, 443 }, (byte)0);
+        this(0, "Default", Community.DEFAULT_COMMUNITY, new ProxyServers(new ProxyServer("127.0.0.1", 5556, 443)), (byte)0);
     }
 
     public int getId() {
@@ -46,12 +44,8 @@ public class Proxy {
         return this.m_community;
     }
 
-    public String getAddress() {
-        return this.m_address;
-    }
-
-    public int[] getPorts() {
-        return this.m_ports.clone();
+    public ProxyServers getServers() {
+        return this.servers;
     }
 
     public int getOrder() {
@@ -69,16 +63,20 @@ public class Proxy {
         bb.putInt(utfName.length);
         bb.put(utfName);
         bb.putInt(this.m_community.getId());
-        final byte[] utfAddress = Utils.toUTF8(this.m_address);
-        bb.putInt(utfAddress.length);
-        bb.put(utfAddress);
-        bb.putInt(this.m_ports.length);
-        for (int i = 0, length = this.m_ports.length; i < length; ++i) {
-            final int port = this.m_ports[i];
-            bb.putInt(port);
-        }
+        encodeServer(bb, this.servers.getUber());
         bb.put(this.m_order);
         return bb.toArray();
+    }
+
+    private static void encodeServer(ByteArray bb, ProxyServer server) {
+        final byte[] utfAddress = Utils.toUTF8(server.getAddress());
+        bb.putInt(utfAddress.length);
+        bb.put(utfAddress);
+        bb.putInt(server.getPorts().length);
+        for (int i = 0, length = server.getPorts().length; i < length; ++i) {
+            final int port = server.getPorts()[i];
+            bb.putInt(port);
+        }
     }
 
     public static Proxy fromBuild(final ByteBuffer bb) {
@@ -87,6 +85,18 @@ public class Proxy {
         bb.get(utfName);
         final String name = Utils.fromUTF8(utfName);
         final Community community = Community.getFromId(bb.getInt());
+        final ProxyServer server = decodeServer(bb);
+        final byte order = bb.get();
+        final Proxy proxy = new Proxy();
+        proxy.m_id = id;
+        proxy.m_name = name;
+        proxy.m_community = community;
+        proxy.servers = new ProxyServers(server);
+        proxy.m_order = order;
+        return proxy;
+    }
+
+    private static ProxyServer decodeServer(ByteBuffer bb) {
         final byte[] utfAddress = new byte[bb.getInt()];
         bb.get(utfAddress);
         final String address = Utils.fromUTF8(utfAddress);
@@ -94,19 +104,12 @@ public class Proxy {
         for (int i = 0, length = ports.length; i < length; ++i) {
             ports[i] = bb.getInt();
         }
-        final byte order = bb.get();
-        final Proxy proxy = new Proxy();
-        proxy.m_id = id;
-        proxy.m_name = name;
-        proxy.m_community = community;
-        proxy.m_address = address;
-        proxy.m_ports = ports;
-        proxy.m_order = order;
-        return proxy;
+
+        return new ProxyServer(address, ports);
     }
 
     @Override
     public String toString() {
-        return "Proxy{m_id=" + this.m_id + ", m_name='" + this.m_name + '\'' + ", m_community=" + this.m_community + ", m_address='" + this.m_address + '\'' + ", m_ports=" + Arrays.toString(this.m_ports) + ", m_order=" + this.m_order + '}';
+        return "Proxy{m_id=" + this.m_id + ", m_name='" + this.m_name + '\'' + ", m_community=" + this.m_community + ", m_proxyAddresses='" + this.servers + ", m_order=" + this.m_order + '}';
     }
 }

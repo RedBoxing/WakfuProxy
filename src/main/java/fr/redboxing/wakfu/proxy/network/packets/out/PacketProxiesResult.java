@@ -1,7 +1,9 @@
 package fr.redboxing.wakfu.proxy.network.packets.out;
 
+import fr.redboxing.wakfu.proxy.ProxyServer;
 import fr.redboxing.wakfu.proxy.WakfuProxy;
 import fr.redboxing.wakfu.proxy.models.Proxy;
+import fr.redboxing.wakfu.proxy.models.ProxyServers;
 import fr.redboxing.wakfu.proxy.models.Server;
 import fr.redboxing.wakfu.proxy.models.WorldInfo;
 import fr.redboxing.wakfu.proxy.models.account.Community;
@@ -15,6 +17,7 @@ import io.netty.buffer.Unpooled;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class PacketProxiesResult extends Packet {
@@ -55,19 +58,22 @@ public class PacketProxiesResult extends Packet {
             ex.printStackTrace();
         }
 
-        ArrayList<Server> servers = new ArrayList<>();
-        servers.add(new Server(6, "Dathura", Community.FR, "127.0.0.1", 8081, 4));
+        ArrayList<Proxy> proxies = new ArrayList<>();
+        ArrayList<WorldInfo> worlds = new ArrayList<>();
+
+        proxies.add(new Proxy(6, "Dathura", Community.FR, new ProxyServers(new ProxyServer("127.0.0.1", 8081, 443)), (byte) 0));
+        worlds.add(new WorldInfo(6, new SystemConfiguration(6, false, false, 0, "", "", "default"), Utils.versionToBytes((byte)1, (short)74, (byte)3)));
 
         OutPacket out = new OutPacket(opcode);
 
-        out.writeInt(servers.size());
-        for(Server server : servers) {
-            out.writeBytes(server.serializeProxy());
+        out.writeInt(proxies.size());
+        for(Proxy server : proxies) {
+            out.writeBytes(server.build());
         }
 
-        out.writeInt(servers.size());
-        for(Server server : servers) {
-            out.writeBytes(server.serializeWorld());
+        out.writeInt(worlds.size());
+        for(WorldInfo worldInfo : worlds) {
+            out.writeBytes(worldInfo.build());
         }
 
         out.finish();

@@ -5,6 +5,18 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 public class Utils {
+    public static byte[] versionToBytes(byte major, short minor, byte patch) {
+        ByteArray bb2 = new ByteArray();
+        bb2.put(major);
+        bb2.putShort(minor);
+        bb2.put(patch);
+        final byte[] utfBuild = Utils.toUTF8("-1");
+        bb2.putInt(utfBuild.length);
+        bb2.put(utfBuild);
+
+        return bb2.toArray();
+    }
+
     public static String toHex(byte[] bytes) {
         StringBuilder result = new StringBuilder();
         for (byte aByte : bytes) {
