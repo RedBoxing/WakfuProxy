@@ -26,7 +26,7 @@ public class WakfuProxy {
     public void start() {
         long start = System.currentTimeMillis();
         ServerBootstrap b = new ServerBootstrap();
-        b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).localAddress(8080 /*5558 */).childHandler(new ClientInitializer());
+        b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class).localAddress(5558).childHandler(new ClientInitializer());
 
         try {
             log("Listening on port 5558.");
@@ -46,7 +46,7 @@ public class WakfuProxy {
     public void startGameProxy() {
         long start = System.currentTimeMillis();
         ServerBootstrap b = new ServerBootstrap();
-        b.group(bossGroup2, workerGroup2).channel(NioServerSocketChannel.class).localAddress(8081).childHandler(new GameClientInitializer());
+        b.group(bossGroup2, workerGroup2).channel(NioServerSocketChannel.class).localAddress(5556).childHandler(new GameClientInitializer());
 
         try {
             log("Listening on port 5556.");

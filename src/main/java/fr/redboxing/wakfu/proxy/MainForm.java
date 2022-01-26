@@ -1,6 +1,7 @@
 package fr.redboxing.wakfu.proxy;
 
 import fr.redboxing.wakfu.proxy.network.packets.Packet;
+import fr.redboxing.wakfu.proxy.network.packets.Protocol;
 
 import javax.swing.*;
 import javax.swing.table.*;
@@ -173,7 +174,7 @@ public class MainForm extends JFrame {
 
     public void addPacketToTable(Class<? extends Packet> message, Packet packet) {
         int index = tableModel.getRowCount();
-        tableModel.insertRow(index, new Object[]{ packet.packetType, packet.opcode, message.getSimpleName(), packet.toString()});
+        tableModel.insertRow(index, new Object[]{ packet.getPacketType(), Protocol.getInstance().getPacketId(packet), message.getSimpleName(), packet.toString()});
     }
 
     public JTextArea getLogArea() {

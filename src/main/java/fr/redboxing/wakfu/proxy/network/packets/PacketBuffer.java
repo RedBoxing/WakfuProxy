@@ -3,20 +3,44 @@ package fr.redboxing.wakfu.proxy.network.packets;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
-import java.io.FileOutputStream;
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 
-public class OutPacket {
+public class PacketBuffer {
     private ByteBuf data;
     private int packetId;
     private HashMap<Integer, Integer> marks = new HashMap<Integer, Integer>();
 
-    public OutPacket(int packetId) {
-        this.packetId = packetId;
+    public PacketBuffer(Packet.PacketType packetType,  int opcode, int type) {
+        this(Unpooled.buffer(), opcode, packetType, type);
+    }
 
-        data = Unpooled.buffer();
-        data.writeShort(0); //Size placeholder
-        data.writeShort(packetId);
+    public PacketBuffer(Packet.PacketType packetType,  int opcode) {
+        this(Unpooled.buffer(), opcode, packetType, 0);
+    }
+
+    public PacketBuffer(ByteBuf buffer, int opcode, Packet.PacketType packetType) {
+        this(buffer, opcode, packetType, 0);
+    }
+
+    public PacketBuffer(ByteBuf buffer, int opcode, Packet.PacketType packetType, int type) {
+        this.data = buffer;
+        this.packetId = opcode;
+
+        if(data.readableBytes() > 5) {
+            data.readShort();
+            if(packetType == Packet.PacketType.CLIENT_MSG) {
+                data.readByte();
+            }
+
+            this.packetId = data.readShort();
+        } else {
+            data.writeShort(0); //Size placeholder
+            if(packetType == Packet.PacketType.CLIENT_MSG) {
+                data.writeByte(type);
+            }
+            data.writeShort(packetId);
+        }
     }
 
     public void finish() {
@@ -31,51 +55,127 @@ public class OutPacket {
         this.data = buffer;
     }
 
+    public ByteBuffer toByteBuffer() {
+        byte[] bytes = readBytes(readableBytes());
+        return ByteBuffer.wrap(bytes);
+    }
+
     public int getPacketId() {
         return packetId;
     }
 
-    public OutPacket writeByte(int b) {
+    public PacketBuffer writeByte(int b) {
         data.writeByte(b);
         return this;
     }
 
-    public OutPacket writeShort(int s) {
+    public byte readByte() {
+        return data.readByte();
+    }
+
+    public short readUnsignedByte() {
+        return data.readUnsignedByte();
+    }
+
+    public PacketBuffer writeShort(int s) {
         data.writeShort(s);
         return this;
     }
 
-    public OutPacket writeInt(int i) {
+    public short readShort() {
+        return data.readShort();
+    }
+
+    public int readUnsignedShort() {
+        return data.readUnsignedShort();
+    }
+
+    public PacketBuffer writeInt(int i) {
         data.writeInt(i);
         return this;
     }
 
-    public OutPacket writeLong(long l) {
+    public int readInt() {
+        return data.readInt();
+    }
+
+    public long readUnsignedInt() {
+        return data.readUnsignedInt();
+    }
+
+    public PacketBuffer writeLong(long l) {
         data.writeLong(l);
         return this;
     }
 
-    public OutPacket writeBytes(byte[] b) {
+    public long readLong() {
+        return data.readLong();
+    }
+
+    public PacketBuffer writeBytes(byte[] b) {
         data.writeBytes(b);
         return this;
     }
 
-    public OutPacket writeString(String s) {
+    public byte[] readBytes(int length) {
+        byte[] bytes = new byte[length];
+        data.readBytes(bytes);
+        return bytes;
+    }
+
+    public PacketBuffer writeBoolean(boolean b) {
+        data.writeBoolean(b);
+        return this;
+    }
+
+    public boolean readBoolean() {
+        return data.readBoolean();
+    }
+
+    public PacketBuffer writeString(String s) {
         data.writeByte(s.length());
         data.writeBytes(s.getBytes());
         return this;
     }
 
-    public OutPacket writeBigString(String s) {
+    public String readString() {
+        byte[] str = new byte[data.readUnsignedByte()];
+        data.readBytes(str);
+        return new String(str);
+    }
+
+    public PacketBuffer writeBigString(String s) {
         data.writeShort(s.length());
         data.writeBytes(s.getBytes());
         return this;
     }
 
-    public OutPacket writeLargeString(String s) {
+    public String readBigString() {
+        int len = data.readUnsignedShort();
+        byte[] str = new byte[len];
+        data.readBytes(str);
+        return new String(str);
+    }
+
+    public PacketBuffer writeLargeString(String s) {
         data.writeInt(s.length());
         data.writeBytes(s.getBytes());
         return this;
+    }
+
+    public String readLargeString() {
+        int len = data.readInt();
+        byte[] str = new byte[len];
+        data.readBytes(str);
+        return new String(str);
+    }
+
+    public int readableBytes() {
+        return data.readableBytes();
+    }
+
+    public int writableBytes() {
+        return data.writableBytes();
     }
 
     public void markShort(int index) {
@@ -149,18 +249,5 @@ public class OutPacket {
         for (int i=0; i<buf.length; i++)
             System.out.print((hex ? "0x" + Integer.toHexString(buf[i] & 0xFF).toUpperCase() : String.valueOf(buf[i])) + (i == buf.length-1 ? "" : ", "));
         System.out.println("]");
-    }
-
-    public void dumpBuffer(String file) {
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            byte[] buf = new byte[data.writerIndex()];
-            data.getBytes(0, buf);
-            fos.write(buf);
-            fos.flush();
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }

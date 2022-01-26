@@ -26,8 +26,9 @@ public class GameServerInitializer extends ChannelInitializer<SocketChannel> {
             SslHandler sslHandler = SSLUtils.generateSelfSignedCertificateForClient().newHandler(ch.alloc());
             pl.addLast(sslHandler);
         }
-        pl.addLast("decoder", new GameServerPacketDecoder(this.session));
+
+        pl.addLast("decoder", new GameServerPacketDecoder());
         pl.addLast("encoder", new PacketEncoder());
-        pl.addLast("handler", new GameServerHandler());
+        pl.addLast("handler", new GameServerHandler(this.session));
     }
 }

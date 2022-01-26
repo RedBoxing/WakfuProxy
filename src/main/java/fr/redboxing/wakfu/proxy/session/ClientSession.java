@@ -16,7 +16,6 @@ public class ClientSession {
     private EventLoopGroup workerGroup;
     private EventLoopGroup workerGroup2;
     private Channel serverChannel;
-    private byte[] loginRSAKey;
     private SocketAddress address;
 
     public ClientSession(Channel channel) {
@@ -48,9 +47,9 @@ public class ClientSession {
         this.workerGroup2 = new NioEventLoopGroup(1);
         try {
             final Bootstrap b = new Bootstrap();
-            b.group(workerGroup2).channel(NioSocketChannel.class).handler(new GameServerInitializer(this, false));
+            b.group(workerGroup2).channel(NioSocketChannel.class).handler(new GameServerInitializer(this, true));
 
-            this.serverChannel = b.connect("dathura.platforms.wakfu.co", 5556).sync().channel();
+            this.serverChannel = b.connect("pandora.platforms.wakfu.com", 5556).sync().channel();
             WakfuProxy.getInstance().getLogger().info("Connected to wakfu game server");
         }  catch (Exception ex) {
             ex.printStackTrace();
@@ -73,13 +72,5 @@ public class ClientSession {
         }catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-
-    public byte[] getLoginRSAKey() {
-        return loginRSAKey;
-    }
-
-    public void setLoginRSAKey(byte[] loginRSAKey) {
-        this.loginRSAKey = loginRSAKey;
     }
 }

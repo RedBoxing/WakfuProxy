@@ -1,49 +1,41 @@
 package fr.redboxing.wakfu.proxy.network.packets;
 
-import fr.redboxing.wakfu.proxy.WakfuProxy;
-import fr.redboxing.wakfu.proxy.session.ClientSession;
-import fr.redboxing.wakfu.proxy.utils.Utils;
-import io.netty.buffer.ByteBuf;
-
-import java.util.Arrays;
-
 public class Packet {
-    public ByteBuf packet;
-    public PacketType packetType;
-    public ClientSession session;
+    private PacketType packetType;
+    private int type;
+    private PacketBuffer buffer;
 
-    public int size;
-    public int type;
-    public int opcode;
-    public boolean know;
-
-    public Packet(ByteBuf packet, PacketType packetType, ClientSession session, boolean know) {
-        this.packet = packet;
+    public Packet(PacketType packetType, int type) {
         this.packetType = packetType;
-        this.session = session;
-
-        this.size = packet.readUnsignedShort();
-
-        if(packetType == PacketType.CLIENT_MSG) {
-            this.type = packet.readUnsignedByte();
-        }else {
-            this.type = -1;
-        }
-
-        this.opcode = packet.readUnsignedShort();
-        this.know = know;
+        this.type = type;
     }
 
-    public ByteBuf decode() {
-        packet.resetReaderIndex();
-        return packet;
+    public Packet(PacketType packetType) {
+        this(packetType, 0);
     }
 
-    @Override
-    public String toString() {
-        final byte[] bytes = new byte[packet.readableBytes()];
-        packet.getBytes(packet.readerIndex(), bytes);
-        return "{ hex: " + Utils.toHex(bytes) + " }";
+    public void decode(PacketBuffer packet) {
+        this.buffer = packet;
+    }
+    public void encode(PacketBuffer packet) {
+        packet = this.buffer;
+    }
+    public void handle(AbstractPacketHandler handler) {}
+
+    public PacketType getPacketType() {
+        return packetType;
+    }
+
+    public void setPacketType(PacketType packetType) {
+        this.packetType = packetType;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public enum PacketType {

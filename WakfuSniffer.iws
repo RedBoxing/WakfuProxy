@@ -5,10 +5,50 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0673dcf0-94f1-466e-ad70-d35130d5f4bf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/WakfuSniffer.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/WakfuSniffer.ipr" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/AbstractPacketHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/Protocol.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketClientAdditionalCharacterSlotsUpdate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketClientCalendarSynchronization.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketClientSystemConfiguration.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketEquipmentInventory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketFreeCompanionBreedId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketWorldSelectionResult.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WakfuSniffer.iws" beforeDir="false" afterPath="$PROJECT_DIR$/WakfuSniffer.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/Opcodes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/Opcodes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketProxiesResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketProxiesResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/MainForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/MainForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/WakfuProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/WakfuProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/models/account/admin/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/models/account/admin/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/ClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/GameClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/GameClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/GameClientInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/GameClientInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/GameServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/GameServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/GameServerInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/GameServerInitializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/codec/ClientPacketDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/codec/ClientPacketDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/codec/GameClientPacketDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/codec/GameClientPacketDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/codec/GameServerPacketDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/codec/GameServerPacketDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/codec/PacketEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/codec/PacketEncoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/IncomingPacket.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/Opcodes.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/OutPacket.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/PacketBuffer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/OutgoingPacket.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/Packet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/in/PacketAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/client/PacketAuthentication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/in/PacketAuthenticationTokenRedeem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/client/PacketAuthenticationTokenRedeem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/in/PacketAuthenticationTokenRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/client/PacketAuthenticationTokenRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/in/PacketLanguage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/client/PacketLanguage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/in/PacketProxiesRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/client/PacketProxiesRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/in/PacketRequestRSA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/client/PacketRequestRSA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/in/PacketVersion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/client/PacketVersion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketAuthenticationResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketAuthenticationResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketAuthenticationTokenResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketAuthenticationTokenResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketCharacterList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketCharacterList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketDispatchAuthenticationResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketDispatchAuthenticationResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketProxiesResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketProxiesResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketProxyRelayError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketProxyRelayError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketRSA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketRSAResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketSetIP.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketSetIP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/out/PacketVersionAck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/network/packets/server/PacketVersionResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/session/ClientSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/session/ClientSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/utils/DataUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/fr/redboxing/wakfu/proxy/utils/DataUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -134,6 +174,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" />
@@ -353,6 +401,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />

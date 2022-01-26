@@ -14,8 +14,8 @@ public class GameClientInitializer extends ChannelInitializer<SocketChannel> {
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pl = ch.pipeline();
 
-        //SslHandler sslHandler = SSLUtils.generateSelfSignedCertificateForServer().newHandler(ch.alloc());
-        //pl.addLast(sslHandler);
+        SslHandler sslHandler = SSLUtils.generateSelfSignedCertificateForServer().newHandler(ch.alloc());
+        pl.addLast(sslHandler);
         pl.addLast("decoder", new GameClientPacketDecoder());
         pl.addLast("encoder", new PacketEncoder());
         pl.addLast("handler", new GameClientHandler());

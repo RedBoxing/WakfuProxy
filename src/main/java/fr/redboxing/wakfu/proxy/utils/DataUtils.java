@@ -1,5 +1,6 @@
 package fr.redboxing.wakfu.proxy.utils;
 
+import fr.redboxing.wakfu.proxy.network.packets.PacketBuffer;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 
@@ -26,6 +27,11 @@ public class DataUtils {
 
     public static final void writeString(ByteBuf buf, String s) {
         buf.writeByte(s.length());
+        buf.writeBytes(s.getBytes());
+    }
+
+    public static final void writeBigString(ByteBuf buf, String s) {
+        buf.writeShort(s.length());
         buf.writeBytes(s.getBytes());
     }
 

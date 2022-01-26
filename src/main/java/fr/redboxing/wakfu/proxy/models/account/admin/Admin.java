@@ -21,6 +21,10 @@ public class Admin
         this.m_adminName = name;
     }
 
+    public byte[] serialize() {
+        return AdminUtils.serialize(this);
+    }
+
     public boolean addRights(final Right right) {
         try {
             return this.m_rights.add(right);

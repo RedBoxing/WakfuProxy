@@ -1,41 +1,74 @@
-package fr.redboxing.wakfu.proxy.network.packets.out;
+package fr.redboxing.wakfu.proxy.network.packets.server;
 
 import com.google.common.base.Optional;
 import fr.redboxing.wakfu.proxy.WakfuProxy;
 import fr.redboxing.wakfu.proxy.models.account.*;
 import fr.redboxing.wakfu.proxy.models.account.admin.*;
+import fr.redboxing.wakfu.proxy.network.packets.AbstractPacketHandler;
 import fr.redboxing.wakfu.proxy.network.packets.Packet;
+import fr.redboxing.wakfu.proxy.network.packets.PacketBuffer;
 import fr.redboxing.wakfu.proxy.session.ClientSession;
 import fr.redboxing.wakfu.proxy.utils.AdminUtils;
 import fr.redboxing.wakfu.proxy.utils.DataUtils;
 import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 
 public class PacketDispatchAuthenticationResult extends Packet {
-    PacketAuthenticationResult.LoginResponseCode code;
-    AccountInformation accountInformation;
+    private PacketAuthenticationResult.LoginResponseCode code;
+    private AccountInformation accountInformation;
 
-    public PacketDispatchAuthenticationResult(ByteBuf packet, PacketType packetType, ClientSession session, boolean know) {
-        super(packet, packetType, session, know);
+    public PacketDispatchAuthenticationResult(PacketAuthenticationResult.LoginResponseCode code, AccountInformation accountInformation) {
+        super(PacketType.SERVER_MSG);
+        this.code = code;
+        this.accountInformation = accountInformation;
+    }
+
+    public PacketDispatchAuthenticationResult() {
+        this(PacketAuthenticationResult.LoginResponseCode.INVALID_LOGIN, null);
     }
 
     @Override
-    public ByteBuf decode() {
-
-        //LOGIN RESPONSE
-        code = PacketAuthenticationResult.LoginResponseCode.getByID(packet.readByte());
+    public void decode(PacketBuffer packet) {
+        this.code = PacketAuthenticationResult.LoginResponseCode.getByID(packet.readByte());
         boolean success = packet.readBoolean();
 
         if(success) {
             try {
-                accountInformation = AccountInformation.unSerialize(packet);
+                this.accountInformation = AccountInformation.unSerialize(packet.getData());
             }catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+    }
 
-        WakfuProxy.getInstance().getLogger().info(getClass().getSimpleName() + " : " + toString());
+    @Override
+    public void encode(PacketBuffer packet) {
+        packet.writeByte(this.code.getCode());
+        packet.writeBoolean(this.code == PacketAuthenticationResult.LoginResponseCode.CORRECT_LOGIN);
+        if(this.code == PacketAuthenticationResult.LoginResponseCode.CORRECT_LOGIN) {
+            packet.writeBytes(AccountInformation.serialize(this.accountInformation));
+        }
+    }
 
-        return super.decode();
+    @Override
+    public void handle(AbstractPacketHandler handler) {
+        handler.handle(this);
+    }
+
+    public PacketAuthenticationResult.LoginResponseCode getCode() {
+        return code;
+    }
+
+    public void setCode(PacketAuthenticationResult.LoginResponseCode code) {
+        this.code = code;
+    }
+
+    public AccountInformation getAccountInformation() {
+        return accountInformation;
+    }
+
+    public void setAccountInformation(AccountInformation accountInformation) {
+        this.accountInformation = accountInformation;
     }
 
     @Override
@@ -88,6 +121,22 @@ public class PacketDispatchAuthenticationResult extends Packet {
                 admin = Optional.absent();
             }
             return new AccountInformation(id, community, admin, nickname);
+        }
+
+        public static byte[] serialize(final AccountInformation accountInformation) {
+            final ByteBuf buf = Unpooled.buffer();
+            buf.writeLong(accountInformation.get_account_id());
+            buf.writeInt(accountInformation.getCommunity().getId());
+            DataUtils.writeBigString(buf, accountInformation.get_accountNickName());
+            if (accountInformation.getAdminInformation().isPresent()) {
+                buf.writeBoolean(true);
+                buf.writeInt(accountInformation.getAdminInformation().get().serialize().length);
+                buf.writeBytes(accountInformation.getAdminInformation().get().serialize());
+            }
+            else {
+                buf.writeBoolean(false);
+            }
+            return buf.array();
         }
 
         @Override
