@@ -26,6 +26,7 @@ public class PacketWorldSelectionResult extends Packet {
     @Override
     public void encode(PacketBuffer packet) {
         packet.writeByte(this.errorCode);
+        packet.finish();
     }
 
     @Override

@@ -21,6 +21,7 @@ public class PacketEncoder extends MessageToByteEncoder<Packet> {
 
         byte[] b = new byte[out.readableBytes()];
         out.readBytes(b);
+        out.resetReaderIndex();
         System.out.println(Utils.toHex(b));
 
         ctx.channel().flush();

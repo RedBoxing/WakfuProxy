@@ -1,8 +1,8 @@
 package fr.redboxing.wakfu.proxy.network;
 
-import fr.redboxing.wakfu.proxy.network.codec.ClientPacketDecoder;
-import fr.redboxing.wakfu.proxy.network.codec.GameClientPacketDecoder;
+import fr.redboxing.wakfu.proxy.network.codec.PacketDecoder;
 import fr.redboxing.wakfu.proxy.network.codec.PacketEncoder;
+import fr.redboxing.wakfu.proxy.network.packets.Packet;
 import fr.redboxing.wakfu.proxy.utils.SSLUtils;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -16,7 +16,7 @@ public class GameClientInitializer extends ChannelInitializer<SocketChannel> {
 
         SslHandler sslHandler = SSLUtils.generateSelfSignedCertificateForServer().newHandler(ch.alloc());
         pl.addLast(sslHandler);
-        pl.addLast("decoder", new GameClientPacketDecoder());
+        pl.addLast("decoder", new PacketDecoder(Packet.PacketType.CLIENT_MSG));
         pl.addLast("encoder", new PacketEncoder());
         pl.addLast("handler", new GameClientHandler());
     }

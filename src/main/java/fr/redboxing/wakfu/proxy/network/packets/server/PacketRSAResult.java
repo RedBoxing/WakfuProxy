@@ -34,6 +34,7 @@ public class PacketRSAResult extends Packet {
     public void encode(PacketBuffer packet) {
         packet.writeLong(this.verification);
         packet.writeBytes(this.key);
+        packet.finish();
     }
 
     @Override

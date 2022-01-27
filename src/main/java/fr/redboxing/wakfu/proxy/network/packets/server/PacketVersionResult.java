@@ -44,6 +44,7 @@ public class PacketVersionResult extends Packet {
         packet.writeShort(minor);
         packet.writeByte(patch);
         packet.writeString(buildVersion);
+        packet.finish();
     }
 
     @Override

@@ -48,6 +48,7 @@ public class PacketDispatchAuthenticationResult extends Packet {
         if(this.code == PacketAuthenticationResult.LoginResponseCode.CORRECT_LOGIN) {
             packet.writeBytes(AccountInformation.serialize(this.accountInformation));
         }
+        packet.finish();
     }
 
     @Override
